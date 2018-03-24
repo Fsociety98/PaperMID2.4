@@ -16,5 +16,11 @@ namespace PaperMID.Controllers
         {
             return View();
         }
+
+        public ActionResult Quines()
+        {
+            return View();
+
+        }
     }
 }

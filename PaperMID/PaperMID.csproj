@@ -745,6 +745,7 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Shared\_LayoutPublico.cshtml" />
     <Content Include="Views\Administrador\DatosEmpresa.cshtml" />
+    <Content Include="Views\Publico\Quines.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
