@@ -26,5 +26,9 @@ namespace PaperMID.Controllers
         {
             return View();
         }
+        public ActionResult DatosEmpresa()
+        {
+            return View();
+        }
     }
 }
