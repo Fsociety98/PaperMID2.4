@@ -1,0 +1,136 @@
+﻿<!DOCTYPE html>
+<html lang="es-mx">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PaperMID</title>
+
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="~/Content/Css/materialize.css" media="screen,projection" rel="stylesheet" />
+    <link href="~/Content/Css/Front-style.css" rel="stylesheet" media="screen,projection" />
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Bootstrap core CSS -->
+    @*<link href="~/Content/Css/bootstrap.css" rel="stylesheet" />*@
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <!-- Material Design Bootstrap -->
+    <link href="~/Content/Css/mdb.min.css" rel="stylesheet" />
+    <link href="~/Content/Css/alertify.css" rel="stylesheet" />
+    <script src="~/Scripts/alertify.js"></script>
+    <script src="~/Scripts/jquery-3.2.1.js"></script>
+
+    @* Scritps *@
+    <!--  Scripts-->
+
+    <script src="~/Scripts/materialize.js"></script>
+    <script src="~/Scripts/init.js"></script>
+    <script src="~/Scripts/popper.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+
+    <script src="~/Scripts/mdb.min.js"></script>
+    <!--Google Maps-->
+    <script src="https://maps.google.com/maps/api/js"></script>
+
+
+    <style>
+        /* TEMPLATE STYLES */
+
+        .flex-center {
+            color: #fff;
+        }
+
+        .intro-1 {
+            background: url("../../Content/Images/colores.jpg")no-repeat center center;
+            background-size: cover;
+        }
+
+        .fondoBlanco {
+            background-color: #fff;
+            color: black;
+            width: 650px;
+        }
+
+        .navbar .btn-group .dropdown-menu a:hover {
+            color: #000 !important;
+        }
+
+        .navbar .btn-group .dropdown-menu a:active {
+            color: #fff !important;
+        }
+
+        .centrado {
+            width: 150px;
+            height: 150px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -75px;
+            margin-left: -75px;
+            background-color: #69a6e5;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark indigo fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="@Url.Action("Index","Publico")">PaperMID</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            &nbsp;&nbsp;&nbsp;
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                @using (Ajax.BeginForm("Buscar", "Publico", new AjaxOptions { HttpMethod = "POST" }, new { enctype = "multipart/form-data", @class = "form-inline fondoBlanco" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <form>
+                        <input class="form-control mr-sm-5 col-lg-10" type="text" placeholder="Buscar" name="dato" required>
+                        <a><i class="fa fa-search right"></i></a>
+                    </form>
+                }
+                &nbsp;&nbsp;&nbsp;
+                    <ul class="navbar-nav">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("ProductosRep","Publico")">Productos</a>
+                        </li>
+                        &nbsp;&nbsp;
+                        <li class="nav-item btn-group">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Más
+                            </a>
+                            <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="#">Citas</a>
+                                <a class="dropdown-item" href="#">Quiénes Somos</a>
+                            </div>
+                        </li>
+                        &nbsp;&nbsp;
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Login", "Login")">Iniciar Sesión</a>
+                        </li>
+                    </ul>
+            </div>
+        </div>
+    </nav>
+    @*Inicio Index promociones*@
+    @RenderBody();
+    <footer class="page-footer teal">
+        <div class="container">
+            <div class="divider-new">
+                <img src="~/Content/Images/Logos/navitek.png" width="180" height="80" />
+                <img src="~/Content/Images/Logos/Bic-Logo.png" width="160" height="80" />
+                <img src="~/Content/Images/Logos/logobarrilitoblanco.png" width="170" height="60" />
+                <img src="~/Content/Images/Logos/Kole.gif" width="170" height="170" />
+                <img src="~/Content/Images/Logos/indra.png" width="160" height="80" />
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="container">
+                <a class="brown-text text-lighten-3" href="#ini">PaperMID</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

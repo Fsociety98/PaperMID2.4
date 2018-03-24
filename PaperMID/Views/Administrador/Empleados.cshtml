@@ -1,0 +1,355 @@
+﻿
+@{
+    ViewBag.Title = "Empleados";
+    Layout = "~/Views/Shared/_LayoutAdministrador.cshtml";
+}
+<div class="row page-titles">
+    <div class="col-md-5 col-8 align-self-center">
+        <h3 class="text-themecolor m-b-0 m-t-0">Administrador</h3>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="javascript:void(0)">Administrador</a></li>
+            <li class="breadcrumb-item active">Empleados</li>
+        </ol>
+    </div>
+    <div class="col-md-7 col-4 align-self-center">
+        <button onclick="OuvrirDialog('#Employé-dialog');" class="btn waves-effect waves-light btn-info pull-right hidden-sm-down" style="color:white !important;"><i class="fa fa-plus-circle"></i> Nueva Promoción</button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-block">
+                <h4 class="card-title text-center">Lista Empleados</h4>
+                <div class="table-responsive">
+                    <table class="display" id="Employé-table">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Nombre</th>
+                                <th class="text-center">Apellido Paterno</th>
+                                <th class="text-center">Apellido Materno</th>
+                                <th class="text-center">Teléfono</th>
+                                <th class="text-center">Correo</th>
+                                <th class="text-right"></th>
+                                <th class="text-right"></th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="Employé-dialog" title="Datos Empleado">
+    <div class="wizard-content" id="validation">
+        <form id="Employé-form" class="validation-wizard wizard-circle">
+            <input type="hidden" name="IdUsuario" id="IdUsuario" />
+            <input type="hidden" name="IdDireccion" id="IdDireccion" />
+            <!-- Step 1 -->
+            <h6>Datos Personales</h6>
+            <section style="border:3px solid #F3F3F3 !important">
+                <br />
+                <div class="row">
+                    <div class="col s4">
+                        <div class="form-group">
+                            <label for="NombreUsu">Nombre</label>
+                            <input type="text" class="form-control required" name="NombreUsu" id="NombreUsu" placeholder="Ingrese Nombre">
+                            <label id="NombreUsu-error" class="text-danger" for="NombreUsu"></label>
+                        </div>
+                    </div>
+                    <div class="col s4">
+                        <div class="form-group">
+                            <label for="ApellidoMaternoUsu">Apellido Materno</label>
+                            <input type="text" class="form-control required" name="ApellidoMaternoUsu" id="ApellidoMaternoUsu" placeholder="Ingrese Apellido">
+                            <label id="ApellidoMaternoUsu-error" class="text-danger" for="ApellidoMaternoUsu"></label>
+                        </div>
+                    </div>
+                    <div class="col s4">
+                        <div class="form-group">
+                            <label for="ApellidoPaternoUsu">Apellido Paterno</label>
+                            <input type="text" class="form-control required" name="ApellidoPaternoUsu" id="ApellidoPaternoUsu" placeholder="Ingrese Apellido">
+                            <label id="ApellidoPaternoUsu-error" class="text-danger" for="ApellidoPaternoUsu"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s4">
+                        <div class="form-group">
+                            <label for="CorreoUsu">Correo</label>
+                            <input type="email" class="form-control required" name="CorreoUsu" id="CorreoUsu" placeholder="Ingrese Correo">
+                            <label id="CorreoUsu-error" class="text-danger" for="CorreoUsu"></label>
+                        </div>
+                    </div>
+                    <div class="col s4">
+                        <div class="form-group">
+                            <label for="TelefonoUsu">Teléfono</label>
+                            <input type="tel" class="form-control required" name="TelefonoUsu" id="TelefonoUsu" placeholder="Ingrese Teléfono">
+                            <label id="TelefonoUsu-error" class="text-danger" for="TelefonoUsu"></label>
+                        </div>
+                    </div>
+                    <div class="col s4">
+                        <div class="form-group">
+                            <label for="RFCUsu">RFC</label>
+                            <input type="text" class="form-control required" name="RFCUsu" id="RFCUsu" placeholder="Ingrese RFC">
+                            <label id="RFCUsu-error" class="text-danger" for="RFCUsu"></label>
+                        </div>
+                    </div>
+                </div>
+                <br />
+            </section>
+            <!-- Step 2 -->
+            <h6>Dirección</h6>
+            <section style="border:3px solid #F3F3F3 !important">
+                <br />
+                <div class="row">
+                    <div class="col s4">
+                        <div class="form-group">
+                            <label for="CalleDir">Calle</label>
+                            <input type="text" class="form-control required" name="CalleDir" id="CalleDir" placeholder="Ingrese Calle">
+                            <label id="CalleDir-error" class="text-danger" for="CalleDir"></label>
+                        </div>
+                    </div>
+                    <div class="col s4">
+                        <div class="form-group">
+                            <label for="CruzaDir">Cruzamientos</label>
+                            <input type="text" class="form-control required" name="CruzaDir" id="CruzaDir" placeholder="Ingrese Cruzamientos">
+                            <label id="CruzaDir-error" class="text-danger" for="CruzaDir"></label>
+                        </div>
+                    </div>
+                    <div class="col s4">
+                        <div class="form-group">
+                            <label for="ColoniaDir">Colonia</label>
+                            <input type="text" class="form-control required" name="ColoniaDir" id="ColoniaDir" placeholder="Ingrese Colonia">
+                            <label id="ColoniaDir-error" class="text-danger" for="ColoniaDir"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s4">
+                        <div class="form-group">
+                            <label for="NumInteDir">Número Interior</label>
+                            <input type="text" class="form-control required" name="NumInteDir" id="NumInteDir" placeholder="Ingrese No. Interior">
+                            <label id="NumInteDir-error" class="text-danger" for="NumInteDir"></label>
+                        </div>
+                    </div>
+                    <div class="col s4">
+                        <div class="form-group">
+                            <label for="NumExteDir">Número Exterior</label>
+                            <input type="text" class="form-control required" name="NumExteDir" id="NumExteDir" placeholder="Ingrese No. Exterior">
+                            <label id="NumExteDir-error" class="text-danger" for="NumExteDir"></label>
+                        </div>
+                    </div>
+                    <div class="col s4">
+                        <div class="form-group">
+                            <label for="CPDir">Código Postal</label>
+                            <input type="text" class="form-control required" name="CPDir" id="CPDir" placeholder="Ingrese C.P.">
+                            <label id="CPDir-error" class="text-danger" for="CPDir"></label>
+                        </div>
+                    </div>
+                </div>
+                <br />
+            </section>
+            <!-- Step 3 -->
+            <h6 style="color:black;">Usuario</h6>
+            <section style="border:3px solid #F3F3F3 !important">
+                <br />
+                <div class="row">
+                    <div class="col s4">
+                        <div class="form-group">
+                            <label for="Usuario">Usuario</label>
+                            <input type="text" class="form-control required" name="Usuario" id="Usuario" placeholder="Ingrese Usuario">
+                            <label id="Usuario-error" class="text-danger" for="Usuario"></label>
+                        </div>
+                    </div>
+                    <div class="col s4">
+                        <div class="form-group">
+                            <label for="ContraseñaUsu">Contraseña</label>
+                            <input type="password" class="form-control required" name="ContraseñaUsu" id="ContraseñaUsu" placeholder="Ingrese Contraseña">
+                            <label id="ContraseñaUsu-error" class="text-danger" for="ContraseñaUsu"></label>
+                        </div>
+                    </div>
+                    <div class="col s4">
+                        <div class="form-group">
+                            <label for="ConfirmContraseña">Confirmar Contraseña</label>
+                            <input type="password" class="form-control required" name="ConfirmContraseña" id="ConfirmContraseña" placeholder="Confirme Contraseña">
+                            <label id="ConfirmContraseña-error" class="text-danger" for="ConfirmContraseña"></label>
+                        </div>
+                    </div>
+                </div>
+                <br />
+            </section>
+            <br />
+        </form>
+    </div>
+</div>
+
+
+<!--Programmation-->
+
+<script type="text/javascript" language="JavaScript" charset="utf8">
+    //Dans le moment de charger le site web
+    $(document).ready(function () {
+        var oTableEmployé = $('#Employé-table').DataTable({
+            "ajax": {
+                "url": "/Usager/ListeUsager",
+                "type": "GET",
+                "datatype": "json"
+            },
+            "columns": [
+                { "data": "NombreUsu", "autoWidth": true },
+                { "data": "ApellidoPaternoUsu", "autoWidth": true },
+                { "data": "ApellidoMaternoUsu", "autoWidth": true },
+                { "data": "TelefonoUsu", "autoWidth": true },
+                { "data": "CorreoUsu", "autoWidth": true },
+                {
+                    "data": "IdUsuario", "autoWidth": "true", "render": function (data) {
+                        return '<a class="btn btn-info pull-right" onclick="TrouverEmployé(' + data + ');" data-toggle="tooltip" title="Editar"><i class="fa fa-edit" style="color:white !important;"></i></a>'
+                    }
+                },
+                {
+                    "data": "IdUsuario", "autoWidth": "true", "render": function (data) {
+                        return '<a class="btn btn-cancelar pull-right" onclick="ÉliminerEmployé(' + data + ');" data-toggle="tooltip" title="Eliminar"><i class="fa fa-trash" style="color:white !important;"></i></a>'
+                    }
+                }
+            ]
+        });
+    });
+
+    jQuery(function ($) {
+        //--------------- validation-wizard---------------------
+        var form_Employé = $("#Employé-form").show();
+        $("#Employé-form").steps({
+            headerTag: "h6"
+            , bodyTag: "section"
+            , transitionEffect: "fade"
+            , titleTemplate: '<span class="step">#index#</span> #title#'
+            , labels: {
+                finish: "Agregar"
+            }
+            , onStepChanging: function (event, currentIndex, newIndex) {
+                return currentIndex > newIndex || !(3 === newIndex && Number($("#age-2").val()) < 18) && (currentIndex < newIndex && (form_Employé.find(".body:eq(" + newIndex + ") label.error").remove(), form_Employé.find(".body:eq(" + newIndex + ") .error").removeClass("error")), form_Employé.validate().settings.ignore = ":disabled,:hidden", form_Employé.valid())
+            }
+            , onFinishing: function (event, currentIndex) {
+                return form_Employé.validate().settings.ignore = ":disabled", form_Employé.valid()
+            }
+            , onFinished: function (event, currentIndex) {
+                POST_Adresse();
+            }
+        }),
+            $("#Employé-form").validate({
+                ignore: "input[type=hidden]"
+                , errorClass: "text-danger"
+                , successClass: "text-success"
+                , highlight: function (element, errorClass) {
+                    $(element).removeClass(errorClass)
+                }
+                , unhighlight: function (element, errorClass) {
+                    $(element).removeClass(errorClass)
+                }
+                , errorPlacement: function (error, element) {
+                    error.insertAfter(element)
+                }
+                , rules: {
+                    email: {
+                        email: !0
+                    }
+                }
+            })
+        //-----------Configuration du dialog employé---------------
+        var Dialog = $('#Employé-dialog').dialog({
+            autoOpen: false,
+            modal: false,
+            resizable: false,
+            height: 600,
+            width: 880,
+            hide: "fade",
+            modal: true,
+            open: function (event, ui) {
+                //center the dialog within the viewport (i.e. visible area of the screen)
+                var top = Math.max(jQuery(window).height() / 2 - jQuery(this)[0].offsetHeight / 2, 0);
+                var left = Math.max(jQuery(window).width() / 2 - jQuery(this)[0].offsetWidth / 2, 0);
+                jQuery(this).parent().css('top', top + "px");
+                jQuery(this).parent().css('left', left + "px");
+                jQuery(this).parent().css('position', 'fixed');
+            },
+            close: function () {
+                //LaverFormPromotion();
+            }
+        });
+        //------------------Charger table employé----------------
+
+    })(jQuery);
+    //----------------------Methods dialog---------------------
+    //'#Employé-dialog'
+    //----------------------Methods employé---------------------
+    function POST_Adresse() {
+        if ($('#ContraseñaUsu').val() == $('#ConfirmContraseña').val()) {
+            //Trouver donnés d'adresse
+            var oDireccionModel = '{IdDireccion:"' + $('#IdDireccion').val() + '",CalleDir:"' + $('#CalleDir').val() + '",NumInteDir:"' + $('#NumInteDir').val() +
+                '",NumExteDir:"' + $('#NumExteDir').val() + '",CruzaDir:"' + $('#CruzaDir').val() + '",ColoniaDir:"' + $('#ColoniaDir').val() +
+                '",CPDir:"' + $('#CPDir').val() + '",UbicacionDir:"N/A",LatitudDir:"N/A",LongitudDir:"N/A"}';
+            //Faire le POST
+            $.ajax({
+                type: "POST",
+                url: "/Adresse/EnvogerAdresse",
+                data: oDireccionModel,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    POST_Employé();
+                },
+                error: function (response) {
+
+                    if ($('#IdDireccion').val() != null || $('#IdDireccion').val() > 0) {
+                        swal("Error", "Al Actualizar la Dirección del Empleado!", "error");
+                    } else {
+                        swal("Error", "Al Agregar la Dirección del Empleado!", "error");
+                    }
+                }
+            });
+        }
+    }
+    function POST_Employé() {
+        var oUsuarioModel = '{IdUsuario:"' + $('#IdUsuario').val() + '",NombreUsu:"' + $('#NombreUsu').val() + '",CPDir:"' + $('#ApellidoMaternoUsu').val() +
+            '",ApellidoPaternoUsu:"' + $('#ApellidoPaternoUsu').val() + '",CorreoUsu:"' + $('#CorreoUsu').val() + '",TelefonoUsu:"' + $('#TelefonoUsu').val() +
+            '",RFCUsu:"' + $('#RFCUsu').val() + '",Usuario:"' + $('#Usuario').val() + '",ContraseñaUsu:"' + $('#ContraseñaUsu').val() + '",IdTipoUsuario1:"' + 2 +
+            '",IdDireccion2:"' + $('#IdDireccion').val() + '"}';
+
+        $.ajax({
+            type: "POST",
+            url: "/Usager/EnvogerUsager",
+            data: oUsuarioModel,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                FermerDialog('#Employé-dialog');
+                if ($('#IdUsuario').val() != null || $('#IdUsuario').val() > 0) {
+                    swal("Datos del Empleado", "Actualizado con Éxito!", "success");
+                } else {
+                    swal("Empleado", "Agregado con Éxito!", "success");
+                }
+                ActualizerTable('#Employé-table');
+            },
+            error: function (response) {
+                FermerDialog('#Employé-dialog');
+                if ($('#IdUsuario').val() != null || $('#IdUsuario').val() > 0) {
+                    swal("Error", "Al actualizar Datos del Empleado!", "error");
+                } else {
+                    swal("Error", "Al agregar Empleado!", "error");
+                }
+                ActualizerTable('#Employé-table');
+            }
+        });
+    }
+</script>
+<!--Jquey Validate-->
+<script src="~/Scripts/jquery.validate.js" type="text/javascript"></script>
+<!--Steps Plugin-->
+<link href="~/Content/Css/steps.css" rel="stylesheet" type="text/css" />
+<script src="~/Scripts/jquery.steps.min.js" type="text/javascript"></script>
+<script src="~/Scripts/steps.js"></script>
+<!--Moment Plugin-->
+<script src="~/Scripts/moment.min.js" type="text/javascript"></script>
+<!--Switcher Plugin-->
+<script src="~/Scripts/jQuery.style.switcher.js" type="text/javascript"></script>
+<!--Sparkline Plugin-->
+<script src="~/Scripts/jquery.sparkline.min.js" type="text/javascript"></script>

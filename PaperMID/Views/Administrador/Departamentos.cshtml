@@ -1,0 +1,201 @@
+﻿
+@{
+    ViewBag.Title = "Departamentos";
+    Layout = "~/Views/Shared/_LayoutAdministrador.cshtml";
+}
+<div class="row page-titles">
+    <div class="col-md-5 col-8 align-self-center">
+        <h3 class="text-themecolor m-b-0 m-t-0">Administrador</h3>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="javascript:void(0)">Administrador</a></li>
+            <li class="breadcrumb-item active">Departamentos</li>
+        </ol>
+    </div>
+    <div class="col-md-7 col-4 align-self-center">
+        <button onclick="OuvrirDépartement();" class="btn waves-effect waves-light btn-info pull-right hidden-sm-down" style="color:white !important;"><i class="fa fa-plus-circle"></i> Nuevo Departamento</button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-block">
+                <h4 class="card-title text-center">Lista Departamentos</h4>
+                <div class="table-responsive">
+                    <table class="display" id="Département-table">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Nombre</th>
+                                <th class="text-right"></th>
+                                <th class="text-right"></th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="Département-dialog" title="Datos Departamento">
+    <form id="Département-form" onsubmit="return false;">
+        <div class="form-horizontal form-material">
+            <input type="hidden" name="IdTipoProducto" id="IdTipoProducto">
+            <div class="form-group">
+                <br />
+                <label class="col-md-12 lbl-f">Nombre  del Departamento</label>
+                <div class="col-md-12">
+                    <input type="text" class="form-control form-control-line" name="TipoProducto" id="TipoProducto" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <table class="pull-right">
+                        <tr>
+                            <th><button onclick="EnvogerDépartement();" class="btn btn-info waves-effect waves-light btn-large btn-lettre"><i class="fas fa-save"></i> Guardar</button></th>
+                            <th><button onclick="FermerDépartement();" class="btn btn-danger btn-lettre waves-effect waves-light btn-large"><i class="fa fa-times-circle"></i> Cancelar</button></th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" language="JavaScript" charset="utf8">
+    $(document).ready(function () {
+        var oTable = $('#Département-table').DataTable({
+            "ajax": {
+                "url": "/TipoProducto/ListeDépartement",
+                "type": "GET",
+                "datatype": "json"
+            },
+            "columns": [
+                { "data": "TipoProducto", "autoWidth": true },
+                {
+                    "data": "IdTipoProducto", "autoWidth": "true", "render": function (data) {
+                        return '<a class="btn btn-info pull-right" onclick="TrouverDépartement(' + data + ');" data-toggle="tooltip" title="Editar"><i class="fa fa-edit" style="color:white !important;"></i></a>'
+                    }
+                },
+                {
+                    "data": "IdTipoProducto", "autoWidth": "true", "render": function (data) {
+                        return '<a class="btn btn-cancelar pull-right" onclick="ÉliminerDépartement(' + data + ');" data-toggle="tooltip" title="Eliminar"><i class="fa fa-trash" style="color:white !important;"></i></a>'
+                    }
+                }
+            ]
+        });
+        $("#Département-dialog").dialog({
+            autoOpen: false,
+            modal: false,
+            resizable: false,
+            height: 250,
+            width: 500,
+            hide: "fade",
+            modal: true,
+            open: function (event, ui) {
+                //center the dialog within the viewport (i.e. visible area of the screen)
+                var top = Math.max(jQuery(window).height() / 2 - jQuery(this)[0].offsetHeight / 2, 0);
+                var left = Math.max(jQuery(window).width() / 2 - jQuery(this)[0].offsetWidth / 2, 0);
+                jQuery(this).parent().css('top', top + "px");
+                jQuery(this).parent().css('left', left + "px");
+                jQuery(this).parent().css('position', 'fixed');
+            },
+            close: function () {
+                LaverFormDépartement();
+            }
+             });
+    });
+    function OuvrirDépartement() {
+        $("#TipoProducto").prop("required", true); //Ajouter - requiered.
+        $('#Département-dialog').dialog('open'); //Ouvrir le dialog.
+    }
+    function FermerDépartement() {
+        $("#TipoProducto").removeAttr("required"); //Quitter - requiered.
+        $('#Département-dialog').dialog('close');
+        LaverFormDépartement();
+    }
+    function TrouverDépartement(IdTipoProducto) {
+        if (IdTipoProducto != null || IdTipoProducto>0) {
+            $.ajax({
+                url: "/TipoProducto/TrouverDépartement",
+                type: 'POST',
+                data: { 'IdTipoProducto': IdTipoProducto },
+                success: function (result) {
+                    $('#IdTipoProducto').val(result.IdTipoProducto);
+                    $('#TipoProducto').val(result.TipoProducto);
+                    OuvrirDépartement();               
+                }
+            });
+        } else { //Errour.
+            swal({
+                title: "Error!",
+                text: "No se puede obtener los datos del Departamento!",
+                icon: "error",
+                button: "Cerrar",
+            });
+        }
+    }
+    function EnvogerDépartement() {
+        var IdTipoProducto = $('#IdTipoProducto').val();
+        var TipoProducto = $('#TipoProducto').val();
+
+        //Validation
+        if (TipoProducto != '') {
+            $.ajax({
+                type: "POST",
+                url: "/TipoProducto/EnvogerDépartement",
+                data: '{IdTipoProducto: "' + IdTipoProducto + '",TipoProducto: "' + TipoProducto + '" }',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    FermerDépartement();
+                    if (IdTipoProducto != null || IdTipoProducto > 0) {
+                        swal("Departamento", "Actualizado con Éxito!", "success");
+                    } else {
+                        swal("Departamento", "Agregado con Éxito!", "success");
+                    }
+                    $('#Département-table').dataTable()._fnAjaxUpdate();
+                },
+                error: function (response) {
+                    FermerDépartement();
+                    if (IdTipoProducto != null || IdTipoProducto > 0) {
+                        swal("Error", "Al actualizado Departamento!", "error");
+                    } else {
+                        swal("Error", "Al agregar Departamento!", "error");
+                    }
+                    $('#Département-table').dataTable()._fnAjaxUpdate();
+                }
+            });
+        }
+
+    }
+    function LaverFormDépartement() {
+        $('#Département-form')[0].reset();
+    }
+    function ÉliminerDépartement(IdTipoProducto) {
+        swal({
+            title: "¿Estas Seguro?",
+            text: "¿Desea Elimininar este Departamento?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        type: "POST",
+                        url: "/TipoProducto/ÉliminerDépartement",
+                        data: '{IdTipoProducto: "' + IdTipoProducto + '" }',
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (response) {
+                            swal("Departamento", "Eliminado con Éxito!", "success");
+                            $('#Département-table').dataTable()._fnAjaxUpdate();
+                        },
+                        error: function (response) {
+                            swal("Error", "Al eliminado Departamento!", "error");
+                        }
+                    });
+                } else {
+                    swal("Se ha cancelado la operación.");
+                }
+            });
+    }
+</script>

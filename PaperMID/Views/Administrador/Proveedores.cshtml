@@ -1,0 +1,230 @@
+﻿
+@{
+    ViewBag.Title = "Proveedores";
+    Layout = "~/Views/Shared/_LayoutAdministrador.cshtml";
+}
+<div class="row page-titles">
+    <div class="col-md-5 col-8 align-self-center">
+        <h3 class="text-themecolor m-b-0 m-t-0">Administrador</h3>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="javascript:void(0)">Administrador</a></li>
+            <li class="breadcrumb-item active">Proveedores</li>
+        </ol>
+    </div>
+    <div class="col-md-7 col-4 align-self-center">
+        <button onclick="OuvrirFournisseur();" class="btn waves-effect waves-light btn-info pull-right hidden-sm-down" style="color:white !important;"><i class="fa fa-plus-circle"></i> Nuevo Proveedor</button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-block">
+                <h4 class="card-title text-center">Lista Proveedores</h4>
+                <div class="table-responsive">
+                    <table class="display" id="Fournisseur-table">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Nombre</th>
+                                <th class="text-center">Teléfono</th>
+                                <th class="text-center">Correo</th>
+                                <th class="text-right"></th>
+                                <th class="text-right"></th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="Fournisseur-dialog" title="Datos Proveedor">
+    <form id="Fournisseur-form" onsubmit="return false;">
+        <div class="form-horizontal form-material">
+            <input type="hidden" name="IdProveedor" id="IdProveedor">
+            <div class="form-group">
+                <br />
+                <label class="col-md-12 lbl-f">Nombre  del Proveedor</label>
+                <div class="col-md-12">
+                    <input type="text" class="form-control form-control-line" name="NombreProv" id="NombreProv" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s6">
+                    <div class="form-group">
+                        <label class="col-md-12">Teléfono</label>
+                        <div class="col-md-12">
+                            <input type="tel" class="form-control form-control-line" name="TelefonoProv" id="TelefonoProv" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s6">
+                    <div class="form-group">
+                        <label class="col-md-12">Correo Electrónico</label>
+                        <div class="col-md-12">
+                            <input type="email" class="form-control form-control-line" name="CorreoProv" id="CorreoProv" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <table class="pull-right">
+                        <tr>
+                            <th><button onclick="EnvogerFournisseur();" class="btn btn-info waves-effect waves-light btn-large btn-lettre"><i class="fas fa-save"></i> Guardar</button></th>
+                            <th><button onclick="FermerFournisseur();" class="btn btn-danger btn-lettre waves-effect waves-light btn-large"><i class="fa fa-times-circle"></i> Cancelar</button></th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" language="JavaScript" charset="utf8">
+    $(document).ready(function () {
+        var oTable = $('#Fournisseur-table').DataTable({
+            "ajax": {
+                "url": "/Fournisseur/ListeFournisseur",
+                "type": "GET",
+                "datatype": "json"
+            },
+            "columns": [
+                { "data": "NombreProv", "autoWidth": true },
+                { "data": "TelefonoProv", "autoWidth": true },
+                { "data": "CorreoProv", "autoWidth": true },
+                {
+                    "data": "IdProveedor", "autoWidth": "true", "render": function (data) {
+                        return '<a class="btn btn-info pull-right" onclick="TrouverFournisseur(' + data + ');" data-toggle="tooltip" title="Editar"><i class="fa fa-edit" style="color:white !important;"></i></a>'
+                    }
+                },
+                {
+                    "data": "IdProveedor", "autoWidth": "true", "render": function (data) {
+                        return '<a class="btn btn-cancelar pull-right" onclick="ÉliminerFournisseur(' + data + ');" data-toggle="tooltip" title="Eliminar"><i class="fa fa-trash" style="color:white !important;"></i></a>'
+                    }
+                }
+            ]
+        });
+        $("#Fournisseur-dialog").dialog({
+            autoOpen: false,
+            modal: false,
+            resizable: false,
+            height: 330,
+            width: 630,
+            hide: "fade",
+            modal: true,
+            open: function (event, ui) {
+                //center the dialog within the viewport (i.e. visible area of the screen)
+                var top = Math.max(jQuery(window).height() / 2 - jQuery(this)[0].offsetHeight / 2, 0);
+                var left = Math.max(jQuery(window).width() / 2 - jQuery(this)[0].offsetWidth / 2, 0);
+                jQuery(this).parent().css('top', top + "px");
+                jQuery(this).parent().css('left', left + "px");
+                jQuery(this).parent().css('position', 'fixed');
+            },
+            close: function () {
+                LaverFormFournisseur();
+            }
+        });
+    });
+    function OuvrirFournisseur() {
+        $("#NombreProv").prop("required", true); //Ajouter - requiered.
+        $("#TelefonoProv").prop("required", true);
+        $("#CorreoProv").prop("required", true);
+        $('#Fournisseur-dialog').dialog('open'); //Ouvrir le dialog.
+    }
+    function FermerFournisseur() {
+        $("#NombreProv").removeAttr("required"); //Quitter - requiered.
+        $("#TelefonoProv").removeAttr("required");
+        $("#CorreoProv").removeAttr("required");
+        $('#Fournisseur-dialog').dialog('close');
+        LaverFormFournisseur();
+    }
+    function TrouverFournisseur(IdProveedor) {
+        if (IdProveedor != null || IdProveedor > 0) {
+            $.ajax({
+                url: "/Fournisseur/TrouverFournisseur",
+                type: 'POST',
+                data: { 'IdProveedor': IdProveedor },
+                success: function (result) {
+                    $('#IdProveedor').val(result.IdProveedor);
+                    $('#NombreProv').val(result.NombreProv);
+                    $('#TelefonoProv').val(result.TelefonoProv);
+                    $('#CorreoProv').val(result.CorreoProv);
+                    OuvrirFournisseur();
+                }
+            });
+        } else { //Errour.
+            swal({
+                title: "Error!",
+                text: "No se puede obtener los datos del Proveedor!",
+                icon: "error",
+                button: "Cerrar",
+            });
+        }
+    }
+
+    function EnvogerFournisseur() {
+        var IdProveedor = $('#IdProveedor').val();
+        var NombreProv = $('#NombreProv').val();
+        var TelefonoProv = $('#TelefonoProv').val();
+        var CorreoProv = $('#CorreoProv').val();
+
+        if (NombreProv != '' && TelefonoProv != '' && CorreoProv != '') {
+            $.ajax({
+                type: "POST",
+                url: "/Fournisseur/EnvogerFournisseur",
+                data: '{IdProveedor: "' + IdProveedor + '",NombreProv: "' + NombreProv + '",TelefonoProv: "' + TelefonoProv + '",CorreoProv: "' + CorreoProv + '" }',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    FermerFournisseur();
+                    if (IdProveedor != null || IdProveedor > 0) {
+                        swal("Proveedor", "Actualizado con Éxito!", "success");
+                    } else {
+                        swal("Proveedor", "Agregado con Éxito!", "success");
+                    }
+                    $('#Fournisseur-table').dataTable()._fnAjaxUpdate();
+                },
+                error: function (response) {
+                    FermerDépartement();
+                    if (IdProveedor != null || IdProveedor > 0) {
+                        swal("Error", "Al actualizar Proveedor!", "error");
+                    } else {
+                        swal("Error", "Al agregar Proveedor!", "error");
+                    }
+                    $('#Fournisseur-table').dataTable()._fnAjaxUpdate();
+                }
+            });
+        }
+    }
+    function LaverFormFournisseur() {
+        $('#Fournisseur-form')[0].reset();
+    }
+    function ÉliminerFournisseur(IdProveedor) {
+        swal({
+            title: "¿Estas Seguro?",
+            text: "¿Desea Elimininar este Proveedor?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        type: "POST",
+                        url: "/Fournisseur/ÉliminerFournisseur",
+                        data: '{IdProveedor: "' + IdProveedor + '" }',
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (response) {
+                            swal("Proveedor", "Eliminado con Éxito!", "success");
+                            $('#Fournisseur-table').dataTable()._fnAjaxUpdate();
+                        },
+                        error: function (response) {
+                            swal("Error", "Al eliminar Proveedor!", "error");
+                        }
+                    });
+                } else {
+                    swal("Se ha cancelado la operación.");
+                }
+            });
+    }
+</script>

@@ -1,0 +1,332 @@
+﻿
+@{
+    ViewBag.Title = "Productos";
+    Layout = "~/Views/Shared/_LayoutAdministrador.cshtml";
+}
+<div class="row page-titles">
+    <div class="col-md-5 col-8 align-self-center">
+        <h3 class="text-themecolor m-b-0 m-t-0">Administrador</h3>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="javascript:void(0)">Inventario</a></li>
+            <li class="breadcrumb-item active">Productos</li>
+        </ol>
+    </div>
+    <div class="col-md-7 col-4 align-self-center">
+        <button onclick="OuvrirProduit();" class="btn waves-effect waves-light btn-info pull-right hidden-sm-down" style="color:white !important;"><i class="fa fa-plus-circle"></i> Nuevo Proveedor</button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-block">
+                <h4 class="card-title text-center">Lista Productos</h4>
+                <div class="table-responsive">
+                    <table class="display" id="Produit-table">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Código</th>
+                                <th class="text-center">Nombre</th>
+                                <th class="text-center">Precio</th>
+                                <th class="text-center">Cantidad Dispobible</th>
+                                <th class="text-right"></th>
+                                <th class="text-right"></th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="Produit-dialog" title="Datos Producto">
+    <form id="Produit-form">
+        <div class="form-horizontal form-material">
+            <input type="hidden" name="IdProducto" id="IdProducto">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="col-md-12">Código</label>
+                        <div class="col-md-12">
+                            <input type="text" class="form-control form-control-line" name="CódigoProd" id="CódigoProd" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <label class="col-md-12">Nombre del Producto</label>
+                        <div class="col-md-12">
+                            <input type="text" class="form-control form-control-line" name="NombreProd" id="NombreProd" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="col-md-12">Proveedor</label>
+                        <div class="col-sm-12">
+                            <select class="form-control form-control-line" name="Fournisseur-list" id="Fournisseur-list"></select>
+                        </div>
+    
+                        <br />
+                        <label class="col-md-12">Departamento</label>
+                        <div class="col-sm-12">
+                            <select class="form-control form-control-line" name="Département-list" id="Département-list"></select>
+                        </div>
+    
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-md-12">Precio</label>
+                                <div class="col-md-12">
+                                    <input type="number" class="form-control form-control-line" name="PrecioProd" id="PrecioProd" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-md-12">Descuento</label>
+                                <div class="col-md-12">
+                                    <input type="number" class="form-control form-control-line" name="PrecioProd" id="PrecioProd" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-md-12">Cantidad Disponible</label>
+                                <div class="col-md-12">
+                                    <input type="number" class="form-control form-control-line" name="CantidadDisponibleProd" id="CantidadDisponibleProd" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-md-12">Cantidad Mínima</label>
+                                <div class="col-md-12">
+                                    <input type="number" class="form-control form-control-line" name="CantidadMinimaProd" id="CantidadMinimaProd" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="col-md-12">Descripción</label>
+                        <div class="col-md-12">
+                            <textarea rows="4" class="form-control form-control-line" name="DescripcionProd" id="DescripcionProd" required></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <table class="pull-right">
+                        <tr>
+                            <th><button type="submit" class="btn btn-info waves-effect waves-light btn-large btn-lettre"><i class="fas fa-save"></i> Guardar</button></th>
+                            <th><a onclick="FermerProduit();" class="btn btn-danger btn-lettre waves-effect waves-light btn-large"><i class="fa fa-times-circle"></i> Cancelar</a></th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" language="JavaScript" charset="utf8">
+    $(document).ready(function () {
+        //Charger table produit
+        var oTableProduit = $('#Produit-table').DataTable({
+            "ajax": {
+                "url": "/Produit/ListeProduit",
+                "type": "GET",
+                "datatype": "json"
+            },
+            "columns": [
+                { "data": "CódigoProd", "autoWidth": true },
+                { "data": "NombreProd", "autoWidth": true },
+                { "data": "PrecioProd", "autoWidth": true },
+                { "data": "CantidadDisponibleProd", "autoWidth": true },
+                {
+                    "data": "IdProducto", "autoWidth": "true", "render": function (data) {
+                        return '<a class="btn btn-info pull-right" onclick="TrouverProduit(' + data + ');" data-toggle="tooltip" title="Editar"><i class="fa fa-edit" style="color:white !important;"></i></a>'
+                    }
+                },
+                {
+                    "data": "IdProducto", "autoWidth": "true", "render": function (data) {
+                        return '<a class="btn btn-cancelar pull-right" onclick="ÉliminerProduit(' + data + ');" data-toggle="tooltip" title="Eliminar"><i class="fa fa-trash" style="color:white !important;"></i></a>'
+                    }
+                }
+            ]
+        });
+
+        //Charger DropdowList Département
+       var oListeDépartement = $.getJSON('/Produit/ListeDépartement', function (data) {
+            $.each(data, function (i, value) {
+                $("#Département-list").append('<option name="' + value.IdTipoProducto + '">' + value.TipoProducto + '</option>');
+            }); //Fermer each()
+        });
+
+        //Charger Dropdowlist Fournisseur
+      var oListeFournisseur = $.getJSON('/Produit/ListeFournisseur', function (data) {
+            $.each(data, function (i, value) {
+                $('#Fournisseur-list').append('<option name="' + value.IdProveedor + '">' + value.NombreProv + '</option>');
+            }); //Fermer each()
+       });
+
+        //Configuration du dialog
+      var oDialogProduit = $('#Produit-dialog').dialog({
+          autoOpen: false,
+          modal: false,
+          resizable: false,
+          height: 528,
+          width: 860,
+          hide: "fade",
+          modal: true,
+          open: function (event, ui) {
+              //center the dialog within the viewport (i.e. visible area of the screen)
+              var top = Math.max(jQuery(window).height() / 2 - jQuery(this)[0].offsetHeight / 2, 0);
+              var left = Math.max(jQuery(window).width() / 2 - jQuery(this)[0].offsetWidth / 2, 0);
+              jQuery(this).parent().css('top', top + "px");
+              jQuery(this).parent().css('left', left + "px");
+              jQuery(this).parent().css('position', 'fixed');
+          },
+          close: function () {
+              LaverFormProduit();
+          }
+      });
+
+
+    });
+
+    function OuvrirProduit() {
+        $('#Produit-dialog').dialog('open'); //Ouvrir le dialog.
+    }
+    function FermerProduit() {
+        $('#Produit-dialog').dialog('close');
+        LaverFormProduit();
+    }
+    function TrouverProduit(IdProducto) {
+        if (IdProducto != null || IdProducto > 0) {
+            $.ajax({
+                url: "/Produit/TrouverProduit",
+                type: 'POST',
+                data: { 'IdProducto': IdProducto },
+                success: function (result) {
+                    //Trouver donnés dans Model
+                    $('#IdProducto').val(result.IdProducto);
+                    $('#CódigoProd').val(result.CódigoProd);
+                    $('#NombreProd').val(result.NombreProd);
+                    $("#Fournisseur-list option[name=" + result.IdProveedor1 + "]").attr("selected", true);
+                    $("#Département-list option[name=" + result.IdTipoProducto1 + "]").attr("selected", true);
+                    $('#PrecioProd').val(result.PrecioProd);
+                    $('#DescuentoProd').val(result.DescuentoProd);
+                    $('#CantidadDisponibleProd').val(result.CantidadDisponibleProd);
+                    $('#CantidadMinimaProd').val(result.CantidadMinimaProd);
+                    $('#DescripcionProd').val(result.DescripcionProd);
+                    OuvrirProduit();
+                }
+            });
+        } else { //Errour.
+            swal({
+                title: "Error!",
+                text: "No se puede obtener los datos del Producto!",
+                icon: "error",
+                button: "Cerrar",
+            });
+        }
+    }
+
+    $('#Produit-form').on('submit', function (e) {
+        e.preventDefault(); //Eviter recharger la web.
+
+        //Trouver donnés dans Model
+        var IdProducto = $('#IdProducto').val();
+        var CódigoProd = $('#CódigoProd').val();
+        var NombreProd = $('#NombreProd').val();
+        var IdProveedor1 = $('#Fournisseur-list option:selected').attr('name'); //Trouver l'IdFornisseur du Select
+        var IdTipoProducto1 = $('#Département-list option:selected').attr('name'); //Trouver l'IdDépartement du Select
+        var PrecioProd = $('#PrecioProd').val();
+        var DescuentoProd = $('#DescuentoProd').val();
+        var CantidadDisponibleProd = $('#CantidadDisponibleProd').val();
+        var CantidadMinimaProd = $('#CantidadMinimaProd').val();
+        var DescripcionProd = $('#DescripcionProd').val();
+
+        //Ce n'est pas vide, l'information va s'envoge
+        if (CódigoProd != '' && NombreProd != '' && IdProveedor1 != '' && IdTipoProducto1 != '' && PrecioProd != '' &&
+            DescripcionProd != '' && CantidadDisponibleProd != '' && CantidadMinimaProd != '' && DescripcionProd != '') {
+
+            var oProductoModel = '{IdProducto: "' + IdProducto + '",CódigoProd: "' + CódigoProd + '",NombreProd: "' + NombreProd +
+                '",IdProveedor1: "' + IdProveedor1 + '",IdTipoProducto1: "' + IdTipoProducto1 + '",PrecioProd: "' + PrecioProd +
+                '",DescuentoProd: "' + DescuentoProd + '",CantidadDisponibleProd: "' + CantidadDisponibleProd +
+                '",CantidadMinimaProd: "' + CantidadMinimaProd + '",DescripcionProd: "' + DescripcionProd + '"}';
+
+            $.ajax({
+                type: "POST",
+                url: "/Produit/EnvogerProduit",
+                data: oProductoModel,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    FermerProduit();
+                    if (IdProducto != null || IdProducto > 0) {
+                        swal("Producto", "Actualizado con Éxito!", "success");
+                    } else {
+                        swal("Producto", "Agregado con Éxito!", "success");
+                    }
+                    $('#Produit-table').dataTable()._fnAjaxUpdate();
+                },
+                error: function (response) {
+                    FermerProduit();
+                    if (IdProducto != null || IdProducto > 0) {
+                        swal("Error", "Al actualizar Producto!", "error");
+                    } else {
+                        swal("Error", "Al agregar Producto!", "error");
+                    }
+                    $('#Produit-table').dataTable()._fnAjaxUpdate();
+                }
+            });
+        }
+        
+    })
+    function ÉliminerProduit(IdProducto) {
+        swal({
+            title: "¿Estas Seguro?",
+            text: "¿Desea Elimininar este Producto?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        type: "POST",
+                        url: "/Produit/ÉliminerProduit",
+                        data: '{IdProducto: "' + IdProducto + '" }',
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (response) {
+                            swal("Producto", "Eliminado con Éxito!", "success");
+                            $('#Produit-table').dataTable()._fnAjaxUpdate();
+                        },
+                        error: function (response) {
+                            swal("Error", "Al eliminar Producto!", "error");
+                        }
+                    });
+                } else {
+                    swal("Se ha cancelado la operación.");
+                }
+            });
+    }
+
+    function LaverFormProduit() {
+        $('#Fournisseur-list option[selected="selected"]').removeAttr('selected');
+        $('#Département-list option[selected="selected"]').removeAttr('selected');
+        $('#Produit-form')[0].reset();
+    }
+</script>
