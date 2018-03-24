@@ -1,0 +1,12 @@
+
+*.config
+.vs/PaperMID_v2.4/v15/.suo
+*.lock
+*.ide
+*.ide-shm
+*.ide-wal
+*.pdb
+*.dll
+*.dll
+*.pdb
+*.dll
