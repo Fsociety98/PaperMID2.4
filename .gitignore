@@ -1,0 +1,4 @@
+*.config
+*.cache
+PaperMID/obj/Debug/PaperMID.csproj.CoreCompileInputs.cache
+*.cache
