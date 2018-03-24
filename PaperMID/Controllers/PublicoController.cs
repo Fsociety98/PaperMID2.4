@@ -17,7 +17,7 @@ namespace PaperMID.Controllers
             return View();
         }
 
-        public ActionResult Quines()
+        public ActionResult Quienes()
         {
             return View();
 
