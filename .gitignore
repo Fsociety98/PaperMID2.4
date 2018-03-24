@@ -20,3 +20,6 @@ PaperMID/obj/Debug/PaperMID.csproj.CoreCompileInputs.cache
 *.cache
 
 .vs/PaperMID_v2.4/v15/.suo
+*.ide
+*.cache
+*.cache
