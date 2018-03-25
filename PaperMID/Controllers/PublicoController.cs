@@ -37,5 +37,33 @@ namespace PaperMID.Controllers
             }
 
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Login( string user,string pass)
+        {
+            Login_ComprobacionModel _oLogin_ComprobacionModel = new Login_ComprobacionModel();
+            _oLogin_ComprobacionModel.Usuario = user;
+            _oLogin_ComprobacionModel.ContraseñaUsu = pass;
+            oServicioAPI = new ServicioAPI();
+            HttpResponseMessage responseMessage = await oServicioAPI.Cliente.PostAsJsonAsync("/api/Login", _oLogin_ComprobacionModel);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                string RespuestaLogin = responseMessage.Content.ReadAsStringAsync().Result;
+                Login_RespuestaModel _oLogin_RespuestaModel = JsonConvert.DeserializeObject<Login_RespuestaModel>(RespuestaLogin);
+                Session["IdUsuario"] = _oLogin_RespuestaModel.IdUsuario;
+                return RedirectToAction("Inicio", _oLogin_RespuestaModel.Modulo);
+            }
+            else
+            {
+                return RedirectToAction("Inicio", "Publico");
+            }
+        }
+
+        public ActionResult Logout()
+        {
+            Session.Abandon();
+            return RedirectToAction("Inicio", "Publico");
+        }
     }
 }

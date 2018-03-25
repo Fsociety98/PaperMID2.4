@@ -510,6 +510,8 @@
     </Compile>
     <Compile Include="Models\DireccionModel.cs" />
     <Compile Include="Models\EmpresaModel.cs" />
+    <Compile Include="Models\Login_ComprobacionModel.cs" />
+    <Compile Include="Models\Login_RespuestaModel.cs" />
     <Compile Include="Models\ProductoModel.cs" />
     <Compile Include="Models\PromocionModel.cs" />
     <Compile Include="Models\ProveedorModel.cs" />
