@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Web;
 using System.Web.Mvc;
 
@@ -8,6 +9,7 @@ namespace PaperMID.Controllers
 {
     public class AdministradorController : Controller
     {
+
         // GET: Administrador
         public ActionResult Inicio()
         {
@@ -30,5 +32,6 @@ namespace PaperMID.Controllers
         {
             return View();
         }
+
     }
 }
