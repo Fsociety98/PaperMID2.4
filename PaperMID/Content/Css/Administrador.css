@@ -51,3 +51,6 @@
 .lbl-formulario {
     color: #67757c !important;
 }
+.error {
+    color: #f44336 !important;
+}
