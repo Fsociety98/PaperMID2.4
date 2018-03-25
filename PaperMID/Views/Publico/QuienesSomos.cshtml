@@ -1,0 +1,47 @@
+﻿@model IEnumerable<PaperMID.Models.EmpresaModel>
+@{
+    ViewBag.Title = "QuienesSomos";
+}
+
+<div class="col-lg-12">
+    @foreach (var Empresa in Model)
+    {
+        <div class="divider-new pt-5" id="somos">
+
+            <h2 class="h2-responsive indigo-text mx-4 font-bold wow fadeIn">Quiénes Somos</h2>
+        </div>
+        <table>
+            <tr><td style="text-align:center;"><img src="~/Content/Images/image.png" alt="Rounded Image" class="img-rounded img-responsive img-dog" /></td></tr>
+            <tr><td style="padding:40px 40px 40px 40px; font-size:18px; vertical-align:text-top; text-align:justify;">Somos una empresa dedicada a proporcionar productos innovadores, nuestro objetivo es brindarle productos a mejor precio posible con el fin de satisfacer sus necesidades en papelería teniendo en cuenta que la calidad de los productos es un punto clave, así tener una satisfacción con los productos de igual forma actuamos como proveedores de productos papeleros ofreciendo un excelente servicio.</td></tr>
+        </table>
+        <table>
+            <tr>
+                <td width="33.33%" style="text-align:center;">
+                    <img style="width:50%; height:50%;" src="~/Content/Images/mision.png" />
+                </td>
+
+                <td width="33.33%" style="text-align:center;">
+                    <img style="width:50%; height:50%;" src="~/Content/Images/vision.png" />
+                </td>
+
+                <td width="33.33%" style="text-align:center;">
+                    <img style="width:50%; height:50%;" src="~/Content/Images/valores.png" />
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:center; font-size:30px;"><h2>Misión</h2></td>
+
+                <td style="text-align:center; font-size:30px;"><h2>Visión</h2></td>
+
+                <td style="text-align:center; font-size:30px;"><h2>Valores</h2></td>
+            </tr>
+            <tr>
+                <td width="33.33%" style="padding:20px 20px 20px 20px; font-size:18px; vertical-align:text-top; text-align:justify;">@Empresa.MisionPape</td>
+                <td width="33.33%" style="padding:20px 20px 20px 20px; font-size:18px; vertical-align:text-top; text-align:justify;">@Empresa.VisionPape</td>
+                <td width="33.33%" style="padding:20px 20px 20px 20px; font-size:18px; vertical-align:text-top; text-align:justify;">@Empresa.ValoresPape</td>
+            </tr>
+        </table>
+    }
+</div>
+
+

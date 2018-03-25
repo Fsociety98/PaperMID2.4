@@ -103,6 +103,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\cssfront\bootstrap.min.css" />
+    <Content Include="Content\cssfront\materialize.css" />
+    <Content Include="Content\cssfront\mdb.min.css" />
+    <Content Include="Content\cssfront\style.css" />
     <Content Include="Content\Css\alertify.css" />
     <Content Include="Content\Css\animate.css" />
     <Content Include="Content\Css\blue.css" />
@@ -125,6 +129,7 @@
     <Content Include="Content\Css\steps.css" />
     <Content Include="Content\Images\colores.jpg" />
     <Content Include="Content\Images\Crayon.jpg" />
+    <Content Include="Content\Images\image.png" />
     <Content Include="Content\Images\Lapiz.jpg" />
     <Content Include="Content\Images\Libreta.jpg" />
     <Content Include="Content\Images\Logos\Bic-Logo.png" />
@@ -134,7 +139,7 @@
     <Content Include="Content\Images\Logos\logobarrilitoblanco.png" />
     <Content Include="Content\Images\Logos\navitek.png" />
     <Content Include="Content\Images\Logos\paypal.png" />
-    <Content Include="Content\Images\mision.jpg" />
+    <Content Include="Content\Images\mision.png" />
     <Content Include="Content\Images\Promociones\CrayonPromo.png" />
     <Content Include="Content\Images\Promociones\LapizPromo.png" />
     <Content Include="Content\Images\Promociones\Tijera.png" />
@@ -147,8 +152,8 @@
     <Content Include="Content\Images\ui-icons_888888_256x240.png" />
     <Content Include="Content\Images\ui-icons_cc0000_256x240.png" />
     <Content Include="Content\Images\ui-icons_ffffff_256x240.png" />
-    <Content Include="Content\Images\valo.jpg" />
-    <Content Include="Content\Images\vision.jpg" />
+    <Content Include="Content\Images\valores.png" />
+    <Content Include="Content\Images\vision.png" />
     <Content Include="Content\jquery-ui.css" />
     <Content Include="Content\font\fa\fontawesome-webfont.svg" />
     <Content Include="Content\Images\custom-select.png" />
@@ -468,6 +473,13 @@
     <Content Include="Scripts\jquery.steps.min.js" />
     <Content Include="Scripts\jQuery.style.switcher.js" />
     <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jsfront\bootstrap.min.js" />
+    <Content Include="Scripts\jsfront\init.js" />
+    <Content Include="Scripts\jsfront\jquery-3.1.1.min.js" />
+    <Content Include="Scripts\jsfront\jquery.js" />
+    <Content Include="Scripts\jsfront\materialize.js" />
+    <Content Include="Scripts\jsfront\mdb.min.js" />
+    <Content Include="Scripts\jsfront\popper.min.js" />
     <Content Include="Scripts\materialize.js" />
     <Content Include="Scripts\mdb.min.js" />
     <Content Include="Scripts\modalform.js" />
@@ -497,6 +509,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\DireccionModel.cs" />
+    <Compile Include="Models\EmpresaModel.cs" />
     <Compile Include="Models\ProductoModel.cs" />
     <Compile Include="Models\PromocionModel.cs" />
     <Compile Include="Models\ProveedorModel.cs" />
@@ -745,7 +758,7 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Shared\_LayoutPublico.cshtml" />
     <Content Include="Views\Administrador\DatosEmpresa.cshtml" />
-    <Content Include="Views\Publico\Quienes.cshtml" />
+    <Content Include="Views\Publico\QuienesSomos.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

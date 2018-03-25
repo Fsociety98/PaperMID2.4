@@ -16,7 +16,7 @@ namespace PaperMID
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Administrador", action = "Inicio", id = UrlParameter.Optional }
+                defaults: new { controller = "Publico", action = "Inicio", id = UrlParameter.Optional }
             );
         }
     }
