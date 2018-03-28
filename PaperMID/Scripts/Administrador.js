@@ -26,15 +26,22 @@ function ValidatorEspagnol() {
 }
 
 //Método para abrir dialog.
-function OuvrirDialog(IdDialog) {
+function AbrirDialog(IdDialog) {
     $(IdDialog).dialog('open'); //Ouvrir le dialog.
 }
 //Método para cerrar dialog.
-function FermerDialog(IdDialog) {
+function CerraDialog(IdDialog) {
     $(IdDialog).dialog('close');
 }
 
 //Método para actualizar tabla.
-function ActualizerTable(IdTable) {
+function ActualizarTabla(IdTable) {
     $(IdTable).dataTable()._fnAjaxUpdate();
+}
+
+
+//Método para cambiar de formulario
+function CambiarFormulario(IdDesactivado, IdActivo) {
+    $(IdDesactivado).hide('ZoomOut');
+    $(IdActivo).show('ZoomIn');
 }

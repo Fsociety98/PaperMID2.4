@@ -1,7 +1,7 @@
 ﻿.btn-cancelar {
     background-color: #f44336;
     color: #ffffff;
-    font-family: roboto !important;
+    font-family: poppins !important;
     font-size: 15px !important;
     border: 1px solid #f44336;
 }
@@ -9,8 +9,8 @@
 .btn-aceptar {
     background-color: #CDDC39;
     color: #ffffff;
-    font-family: roboto !important;
-    font-size: 15px !important;
+    font-family: poppins !important;
+    font-size: 16px !important;
     border: 1px solid #CDDC39;
 }
 
@@ -23,14 +23,14 @@
 .btn-formulario {
     background-color: #5bc0de;
     color: #ffffff;
-    font-family: roboto !important;
+    font-family: poppins !important;
     font-size: 15px !important;
     border: 1px solid #5bc0de;
 }
 .btn-t-m {
     background-color: #CDDC39;
     color: #ffffff;
-    font-family: roboto !important;
+    font-family: poppins !important;
     font-size: 15px !important;
     border: 1px solid #CDDC39;
 }

@@ -11,26 +11,26 @@ using System.Web.Mvc;
 
 namespace PaperMID.Controllers
 {
-    public class AdresseController : Controller
+    public class DireccionController : Controller
     {
         ServicioAPI oServicioAPI;
         // CRUD Adresse
         [HttpGet]
-        public async Task<ActionResult> ListeAdresse()
+        public async Task<ActionResult> ListaDirecciones()
         {
             oServicioAPI = new ServicioAPI();
             HttpResponseMessage responseMessage = await oServicioAPI.Cliente.GetAsync("/api/Direccion");
             if (responseMessage.IsSuccessStatusCode)
             {
-                var Donnés = responseMessage.Content.ReadAsStringAsync().Result;
-                var oDireccionModel = JsonConvert.DeserializeObject<List<DireccionModel>>(Donnés);
+                var Datos = responseMessage.Content.ReadAsStringAsync().Result;
+                var oDireccionModel = JsonConvert.DeserializeObject<List<DireccionModel>>(Datos);
                 return Json(new { data = oDireccionModel }, JsonRequestBehavior.AllowGet);
             }
             return Json(null);
         }
 
         [HttpPost]
-        public async Task<JsonResult> TrouverAdresse(int IdDireccion)
+        public async Task<JsonResult> ObtenerDireccion(int IdDireccion)
         {
             oServicioAPI = new ServicioAPI();
             if (IdDireccion > 0)
@@ -39,8 +39,8 @@ namespace PaperMID.Controllers
                 HttpResponseMessage responseMessage = await oServicioAPI.Cliente.GetAsync(Query);
                 if (responseMessage.IsSuccessStatusCode)
                 {
-                    var Donnés = responseMessage.Content.ReadAsStringAsync().Result;
-                    var oDireccionModel = JsonConvert.DeserializeObject<DireccionModel>(Donnés);
+                    var Datos = responseMessage.Content.ReadAsStringAsync().Result;
+                    var oDireccionModel = JsonConvert.DeserializeObject<DireccionModel>(Datos);
                     return Json(oDireccionModel);
                 }
                 else { return Json(null); }
@@ -49,7 +49,7 @@ namespace PaperMID.Controllers
                 return Json(null);
         }
         [HttpPost]
-        public async Task<JsonResult> EnvogerAdresse(DireccionModel oDireccionModel)
+        public async Task<JsonResult> EnviarDatos(DireccionModel oDireccionModel)
         {
             oServicioAPI = new ServicioAPI();
             if (oDireccionModel.IdDireccion > 0)//Éditer
@@ -65,7 +65,7 @@ namespace PaperMID.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> ÉliminerAdresse(int IdDireccion)
+        public async Task<ActionResult> EliminarDireccion(int IdDireccion)
         {
             oServicioAPI = new ServicioAPI();
             bool Success = false;

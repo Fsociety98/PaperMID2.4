@@ -11,39 +11,38 @@ using System.Web.Mvc;
 
 namespace PaperMID.Controllers
 {
-    public class FournisseurController : Controller
+    public class ProveedorController : Controller
     {
         ServicioAPI oServicioAPI;
-        public FournisseurController()
-        {
-            oServicioAPI = new ServicioAPI();
-        }
+ 
         // CRUD Fournisseur
         [HttpGet]
-        public async Task<ActionResult> ListeFournisseur()
+        public async Task<ActionResult> ListaProveedor()
         {
+            oServicioAPI = new ServicioAPI();
             HttpResponseMessage responseMessage = await oServicioAPI.Cliente.GetAsync("/api/Proveedor");
             if (responseMessage.IsSuccessStatusCode)
             {
-                var Donnés = responseMessage.Content.ReadAsStringAsync().Result;
-                var oProveedorModel = JsonConvert.DeserializeObject<List<ProveedorModel>>(Donnés);
+                var Datos = responseMessage.Content.ReadAsStringAsync().Result;
+                var oProveedorModel = JsonConvert.DeserializeObject<List<ProveedorModel>>(Datos);
                 return Json(new { data = oProveedorModel }, JsonRequestBehavior.AllowGet);
             }
             return Json(null);
         }
 
         [HttpPost]
-        public async Task<JsonResult> TrouverFournisseur(int IdProveedor)
+        public async Task<JsonResult> ObtenerProveedor(int IdProveedor)
         {
+            oServicioAPI = new ServicioAPI();
             if (IdProveedor > 0)
             {
                 string Query = string.Format("/api/Proveedor/" + IdProveedor);
                 HttpResponseMessage responseMessage = await oServicioAPI.Cliente.GetAsync(Query);
                 if (responseMessage.IsSuccessStatusCode)
                 {
-                    var Donnés = responseMessage.Content.ReadAsStringAsync().Result;
-                    var Proveedor = JsonConvert.DeserializeObject<ProveedorModel>(Donnés);
-                    return Json(Proveedor);
+                    var Datos = responseMessage.Content.ReadAsStringAsync().Result;
+                    var oProveedorModel = JsonConvert.DeserializeObject<ProveedorModel>(Datos);
+                    return Json(oProveedorModel);
                 }
                 else { return Json(null); }
             }
@@ -51,8 +50,9 @@ namespace PaperMID.Controllers
                 return Json(null);
         }
         [HttpPost]
-        public async Task<JsonResult> EnvogerFournisseur(ProveedorModel oProveedorModel)
+        public async Task<JsonResult> EnviarDatos(ProveedorModel oProveedorModel)
         {
+            oServicioAPI = new ServicioAPI();
             if (oProveedorModel.IdProveedor > 0)//Éditer
             {
                 string Query = string.Format("/api/Proveedor/" + oProveedorModel.IdProveedor);
@@ -66,8 +66,9 @@ namespace PaperMID.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> ÉliminerFournisseur(int IdProveedor)
+        public async Task<ActionResult> EliminarProveedor(int IdProveedor)
         {
+            oServicioAPI = new ServicioAPI();
             bool Success = false;
             if (IdProveedor > 0)
             {

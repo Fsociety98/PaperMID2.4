@@ -28,7 +28,7 @@ namespace PaperMID.Controllers
         {
             return View();
         }
-        public ActionResult DatosEmpresa()
+        public ActionResult DatosPapeleria()
         {
             return View();
         }

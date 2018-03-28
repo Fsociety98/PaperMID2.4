@@ -11,7 +11,7 @@ using System.Web.Mvc;
 
 namespace PaperMID.Controllers
 {
-    public class ProduitController : Controller
+    public class ProductoController : Controller
     {
         ServicioAPI oServicioAPI;
 
@@ -32,7 +32,7 @@ namespace PaperMID.Controllers
 
         //Liste Fournisseur - Dropdowlist
         [HttpGet]
-        public async Task<ActionResult> ListeFournisseur()
+        public async Task<ActionResult> ListaProveedor()
         {
             oServicioAPI = new ServicioAPI();
             HttpResponseMessage responseMessage = await oServicioAPI.Cliente.GetAsync("/api/Proveedor");

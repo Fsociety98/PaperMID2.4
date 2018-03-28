@@ -11,13 +11,13 @@ using System.Web.Mvc;
 
 namespace PaperMID.Controllers
 {
-    public class PromotionController : Controller
+    public class PromocionController : Controller
     {
         ServicioAPI oServicioAPI;
 
         // CRUD Promotion
         [HttpGet]
-        public async Task<ActionResult> ListePromotion()
+        public async Task<ActionResult> ListaPromocion()
         {
             oServicioAPI = new ServicioAPI();
             HttpResponseMessage responseMessage = await oServicioAPI.Cliente.GetAsync("/api/Promocion");
@@ -31,7 +31,7 @@ namespace PaperMID.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> TrouverPromotion(int IdPromocion)
+        public async Task<JsonResult> ObtenerPromocion(int IdPromocion)
         {
             oServicioAPI = new ServicioAPI();
             if (IdPromocion > 0)
@@ -50,7 +50,7 @@ namespace PaperMID.Controllers
                 return Json(null);
         }
         [HttpPost]
-        public async Task<JsonResult> EnvogerPromotion(PromocionModel oPromocionModel)
+        public async Task<JsonResult> EnviarDatos(PromocionModel oPromocionModel)
         {
             oServicioAPI = new ServicioAPI();
             if (oPromocionModel.IdPromocion > 0)//Éditer
@@ -66,7 +66,7 @@ namespace PaperMID.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> ÉliminerPromotion(int IdPromocion)
+        public async Task<ActionResult> EliminarPromocion(int IdPromocion)
         {
             oServicioAPI = new ServicioAPI();
             bool Success = false;

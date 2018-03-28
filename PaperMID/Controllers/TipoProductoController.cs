@@ -17,22 +17,23 @@ namespace PaperMID.Controllers
 
         // CRUD TipoProducto
         [HttpGet]
-        public async Task<ActionResult> ListeDépartement()
+        public async Task<ActionResult> ListaTipoProducto()
         {
             oServicioAPI = new ServicioAPI();
             HttpResponseMessage responseMessage = await oServicioAPI.Cliente.GetAsync("/api/TipoProducto");
             if (responseMessage.IsSuccessStatusCode)
             {
                 var Datos = responseMessage.Content.ReadAsStringAsync().Result;
-                var oProveedorModel = JsonConvert.DeserializeObject<List<TipoProductoModel>>(Datos);
-                return Json(new { data = oProveedorModel }, JsonRequestBehavior.AllowGet);
+                var oTipoProductoModel = JsonConvert.DeserializeObject<List<TipoProductoModel>>(Datos);
+                return Json(new { data = oTipoProductoModel }, JsonRequestBehavior.AllowGet);
             }
             return Json(null);
         }
 
         [HttpPost]
-        public async Task<JsonResult> TrouverDépartement(int IdTipoProducto)
+        public async Task<JsonResult> ObtenerTipoProducto(int IdTipoProducto)
         {
+            oServicioAPI = new ServicioAPI();
             if (IdTipoProducto > 0)
             {
                 string Query = string.Format("/api/TipoProducto/" + IdTipoProducto);
@@ -40,8 +41,8 @@ namespace PaperMID.Controllers
                 if (responseMessage.IsSuccessStatusCode)
                 {
                     var Datos = responseMessage.Content.ReadAsStringAsync().Result;
-                    var Proveedor = JsonConvert.DeserializeObject<TipoProductoModel>(Datos);
-                    return Json(Proveedor);
+                    var oTipoProductoModel = JsonConvert.DeserializeObject<TipoProductoModel>(Datos);
+                    return Json(oTipoProductoModel);
                 }
                 else { return Json(null); }
             }
@@ -49,8 +50,9 @@ namespace PaperMID.Controllers
                 return Json(null);
         }
         [HttpPost]
-        public async Task<JsonResult> EnvogerDépartement(TipoProductoModel oTipoProductoModel)
+        public async Task<JsonResult> EnviarDatos(TipoProductoModel oTipoProductoModel)
         {
+            oServicioAPI = new ServicioAPI();
             if (oTipoProductoModel.IdTipoProducto > 0)//Éditer
             {
                 string Query = string.Format("/api/TipoProducto/" + oTipoProductoModel.IdTipoProducto);
@@ -64,13 +66,18 @@ namespace PaperMID.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> ÉliminerDépartement(int IdTipoProducto)
+        public async Task<ActionResult> EliminarTipoProducto(int IdTipoProducto)
         {
+            oServicioAPI = new ServicioAPI();
             bool Success = false;
             if (IdTipoProducto > 0)
             {
                 string Query = string.Format("/api/TipoProducto/" + IdTipoProducto);
                 HttpResponseMessage responseMessage = await oServicioAPI.Cliente.DeleteAsync(Query);
+                if (responseMessage.IsSuccessStatusCode)
+                {
+                    Success = true;
+                }
                 Success = (responseMessage.IsSuccessStatusCode) ? true : false;
             }
             return new JsonResult { Data = new { success = Success } };

@@ -12,7 +12,7 @@
         </ol>
     </div>
     <div class="col-md-7 col-4 align-self-center">
-        <button onclick="OuvrirPromotion();" class="btn waves-effect waves-light btn-info pull-right hidden-sm-down" style="color:white !important;"><i class="fa fa-plus-circle"></i> Nueva Promoción</button>
+        <button onclick="NuevoDialogPromocion();" class="btn waves-effect waves-light btn-info pull-right hidden-sm-down" style="color:white !important;"><i class="fa fa-plus-circle"></i> Agregar Promoción</button>
     </div>
 </div>
 <div class="row">
@@ -20,14 +20,15 @@
         <div class="card">
             <div class="card-block">
                 <h4 class="card-title text-center">Lista Promociones</h4>
-                <div class="table-responsive">
-                    <table class="display" id="Promotion-table">
+                <hr />
+                <div class="table-responsive m-t-40">
+                    <table class="table display table-bordered table-striped" id="TabPromocion">
                         <thead>
                             <tr>
-                                <th class="text-center">Nombre</th>
-                                <th class="text-center">Descuento</th>
-                                <th class="text-center">Fecha Inicio</th>
-                                <th class="text-center">Fecha Fin</th>
+                                <th>Nombre</th>
+                                <th>Descuento</th>
+                                <th>Fecha Inicio</th>
+                                <th>Fecha Fin</th>
                                 <th class="text-right"></th>
                                 <th class="text-right"></th>
                             </tr>
@@ -38,67 +39,61 @@
         </div>
     </div>
 </div>
-<div id="Promotion-dialog" title="Datos Promoción">
-    <form id="Promotion-form">
-        <div class="form-horizontal form-material">
+<div id="DialogPromocion">
+    <!--Form Datos Promoción-->
+    <form id="FormPromocion" class="form-horizontal form-material">
+        <div class="form-body">
             <input type="hidden" name="IdPromocion" id="IdPromocion">
             <div class="row">
-                <div class="col-md-8">
+                <div class="col s8">
                     <div class="form-group">
-                        <label class="col-md-12">Nombre</label>
-                        <div class="col-md-12">
-                            <input type="text" class="form-control form-control-line" name="NombrePromo" id="NombrePromo" required>
-                        </div>
+                        <br />
+                        <label for="NombrePromo">Nombre</label>
+                        <input type="text" class="form-control form-control-line" name="NombrePromo" id="NombrePromo" required>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col s4">
                     <div class="form-group">
-                        <label class="col-md-12">Descuento</label>
-                        <div class="col-md-12">
-                            <input type="text" class="form-control form-control-line" name="DescuentoPromo" id="DescuentoPromo" required>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label class="col-md-12">Descripción</label>
-                        <div class="col-md-12">
-                            <textarea rows="4" class="form-control form-control-line" name="DescripcionPromo" id="DescripcionPromo" required></textarea>
-                        </div>
+                        <br />
+                        <label for="DescuentoPromo">Descuento</label>
+                        <input type="text" onkeypress="return SoloNumeros(event);" class="form-control form-control-line" name="DescuentoPromo" id="DescuentoPromo" required>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-4">
+                <div class="col s12">
                     <div class="form-group">
-                        <label class="col-md-12">Proveedor</label>
-                        <div class="col-sm-12">
-                            <select class="form-control form-control-line" name="Fournisseur-list" id="Fournisseur-list"></select>
-                        </div>
+                        <label for="DescripcionPromo">Descripción</label>
+                        <textarea rows="4" class="form-control form-control-line" name="DescripcionPromo" id="DescripcionPromo" required></textarea>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <label class="col-md-12">Fecha Inicio</label>
-                    <div class="col-sm-12">
+            </div>
+            <div class="row">
+                <div class="col s4">
+                    <div class="form-group">
+                        <label for="DescripcionPromo">Proveedor</label>
+                        <select class="form-control form-control-line" name="ListaProveedor" id="ListaProveedor"></select>
+                    </div>
+                </div>
+                <div class="col s4">
+                    <div class="form-group">
+                        <label for="FechaInicioPromo">Fecha Inicio</label>
                         <input type="text" class="form-control mydatepicker" name="FechaInicioPromo" id="FechaInicioPromo" required>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <label class="col-md-12">Fecha Fin</label>
-                    <div class="col-sm-12">
+                <div class="col s4">
+                    <div class="form-group">
+                        <label for="FechaFinPromo">Fecha Fin</label>
                         <input type="text" class="form-control mydatepicker" name="FechaFinPromo" id="FechaFinPromo" required>
                     </div>
                 </div>
             </div>
-
-            <div class="form-group">
+            <div class="form-actions">
                 <div class="col-sm-12">
                     <table class="pull-right">
                         <tr>
-                            <th><button type="submit" class="btn btn-info waves-effect waves-light btn-large btn-lettre"><i class="fas fa-save"></i> Guardar</button></th>
-                            <th><a onclick="FermerPromotion();" class="btn btn-danger btn-lettre waves-effect waves-light btn-large"><i class="fa fa-times-circle"></i> Cancelar</a></th>
+                            <th><button type="submit" class="btn btn-aceptar waves-effect waves-light btn-large btn-lettre"><i class="fas fa-check-circle"></i> Aceptar</button></th>
+                            <th><a onclick="CerraDialog('#DialogPromocion');" class="btn btn-danger btn-lettre waves-effect waves-light btn-large" style="color:white !important;"><i class="fa fa-times-circle"></i> Cancelar</a></th>
                         </tr>
                     </table>
                 </div>
@@ -117,13 +112,107 @@
 <!-- Date range Plugin JavaScript -->
 <script src="https://wrappixel.com/demos/admin-templates/material-pro/assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
 <script src="https://wrappixel.com/demos/admin-templates/material-pro/assets/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
-
+<!--Programación del modulo promociones-->
 <script type="text/javascript" language="JavaScript" charset="utf8">
-    $(document).ready(function () {
-        //Charger table produit
-        var oTablePromotion = $('#Promotion-table').DataTable({
+    //----------------------Métodos para enviar datos ---------------------
+    $('#FormPromocion').on('submit', function (e) {
+        e.preventDefault();
+
+        var oPromocionModel = '{IdPromocion: "' + $('#IdPromocion').val() + '",NombrePromo: "' + $('#NombrePromo').val() + '",DescripcionPromo: "' + $('#DescripcionPromo').val() +
+            '",DescuentoPromo: "' + $('#DescuentoPromo').val() + '",FechaInicioPromo: "' + $('#FechaInicioPromo').val() + '",FechaFinPromo: "' + $('#FechaFinPromo').val() +
+            '",IdProveedor1: "' + $('#ListaProveedor option:selected').attr('name') + '"}';
+        $.ajax({
+            type: "POST",
+            url: "/Promocion/EnviarDatos",
+            data: oPromocionModel,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                CerraDialog('#DialogPromocion');
+                if ($('#IdPromocion').val() != null || $('#IdPromocion').val() > 0) {
+                    swal("Datos de la Promoción", "Actualizada con Éxito!", "success");
+                } else {
+                    swal("Promoción", "Agregada con Éxito!", "success");
+                }
+                LimpiarPromocion();
+                ActualizarTabla('#TabPromocion');
+            },
+            error: function (response) {
+                CerraDialog('#DialogPromocion');
+                if ($('#IdPromocion').val() != null || $('#IdPromocion').val() > 0) {
+                    swal("Error", "Al actualizar los Datos de la Promoción!", "error");
+                } else {
+                    swal("Error", "Al agregar Promoción!", "error");
+                }
+                LimpiarPromocion();
+            }
+        });
+    });
+    function EliminarPromocion(IdPromocion) {
+        swal({
+            title: "¿Estas Seguro?",
+            text: "¿Desea Elimininar esta Promoción?",
+            icon: "warning",
+            buttons: ["No", "Si"],
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        type: "POST",
+                        url: "/Promocion/EliminarPromocion",
+                        data: '{IdPromocion: "' + IdPromocion + '" }',
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (response) {
+                            swal("Promoción", "Eliminada con Éxito!", "success");
+                            ActualizarTabla('#TabPromocion');
+                        },
+                        error: function (response) {
+                            swal("Error", "Al eliminar la Promoción!", "error");
+                        }
+                    });
+                } else {
+                    swal("Se ha cancelado la operación.");
+                }
+            });
+    }
+    //----------------------Métodos para recibir datos -------------------
+    function ObtenerPromocion(IdPromocion) {
+        if (IdPromocion != null || IdPromocion > 0) {
+            $.ajax({
+                url: "/Promocion/ObtenerPromocion",
+                type: 'POST',
+                data: { 'IdPromocion': IdPromocion },
+                success: function (result) {
+                    $('#IdPromocion').val(result.IdPromocion);
+                    $('#NombrePromo').val(result.NombrePromo);
+                    $('#DescripcionPromo').val(result.DescripcionPromo);
+                    $('#DescuentoPromo').val(result.DescuentoPromo);
+                    $('#FechaInicioPromo').val(result.FechaInicioPromo);
+                    $('#FechaFinPromo').val(result.FechaFinPromo);
+                    $("#ListaProveedor option[name=" + result.IdProveedor1 + "]").attr("selected", true);
+                    var ActualizarDialogPromocion = $('#DialogPromocion');
+                    ActualizarDialogPromocion.data("uiDialog")._title = function (title) { title.html(this.options.title); };
+                    ActualizarDialogPromocion.dialog('option', 'title', '<i class="fa fa-edit"></i>&nbsp;&nbsp;Actualizar Datos de la Promoción');
+                    AbrirDialog(ActualizarDialogPromocion);
+                }
+            });
+        } else {
+            swal({
+                title: "Error!",
+                text: "No se puede obtener los datos de la Promoción!",
+                icon: "error",
+                button: "Cerrar",
+            });
+        }
+    }
+    //------------------Se ejecuta al cargar la página----------------
+    jQuery(function ($) {
+         //Cargar tabla promocion
+        var oTabPromocion = $('#TabPromocion').DataTable({
             "ajax": {
-                "url": "/Promotion/ListePromotion",
+                "url": "/Promocion/ListaPromocion",
                 "type": "GET",
                 "datatype": "json"
             },
@@ -134,33 +223,22 @@
                 { "data": "FechaFinPromo", "autoWidth": true },
                 {
                     "data": "IdPromocion", "autoWidth": "true", "render": function (data) {
-                        return '<a class="btn btn-info pull-right" onclick="TrouverPromotion(' + data + ');" data-toggle="tooltip" title="Editar"><i class="fa fa-edit" style="color:white !important;"></i></a>'
+                        return '<a class="btn btn-info pull-right" onclick="ObtenerPromocion(' + data + ');" data-toggle="tooltip" title="Editar"><i class="fa fa-edit" style="color:white !important;"></i></a>'
                     }
                 },
                 {
                     "data": "IdPromocion", "autoWidth": "true", "render": function (data) {
-                        return '<a class="btn btn-cancelar pull-right" onclick="ÉliminerPromotion(' + data + ');" data-toggle="tooltip" title="Eliminar"><i class="fa fa-trash" style="color:white !important;"></i></a>'
+                        return '<a class="btn btn-cancelar pull-right" onclick="EliminarPromocion(' + data + ');" data-toggle="tooltip" title="Eliminar"><i class="fa fa-trash" style="color:white !important;"></i></a>'
                     }
                 }
             ]
         });
-
-        //Charger Dropdowlist Fournisseur
-        var oListeFournisseur = $.getJSON('/Produit/ListeFournisseur', function (data) {
-            $.each(data, function (i, value) {
-                $('#Fournisseur-list').append('<option name="' + value.IdProveedor + '">' + value.NombreProv + '</option>');
-            }); //Fermer each()
-        });
-
-        //DatePicker
-        jQuery('.mydatepicker').datepicker();
-        
-        //Configuration du dialog
-        var oDialogPromotion = $('#Promotion-dialog').dialog({
+        //Configuración del dialogo promociones
+        var oDialogPromocion = $('#DialogPromocion').dialog({
             autoOpen: false,
             modal: false,
             resizable: false,
-            height: 440,
+            height: 460,
             width: 860,
             hide: "fade",
             modal: true,
@@ -173,129 +251,35 @@
                 jQuery(this).parent().css('position', 'fixed');
             },
             close: function () {
-                LaverFormPromotion();
+                LimpiarPromocion();
             }
         });
-
-
-    });
-
-    function OuvrirPromotion() {
-        $('#Promotion-dialog').dialog('open'); //Ouvrir le dialog.
-    }
-    function FermerPromotion() {
-        $('#Promotion-dialog').dialog('close');
-        LaverFormPromotion();
-    }
-    function TrouverPromotion(IdPromocion) {
-        if (IdPromocion != null || IdPromocion > 0) {
-            $.ajax({
-                url: "/Promotion/TrouverPromotion",
-                type: 'POST',
-                data: { 'IdPromocion': IdPromocion },
-                success: function (result) {
-                    //Trouver donnés dans Model
-                    $('#IdPromocion').val(result.IdPromocion);
-                    $('#NombrePromo').val(result.NombrePromo);
-                    $('#DescripcionPromo').val(result.DescripcionPromo);
-                    $('#DescuentoPromo').val(result.DescuentoPromo);
-                    $('#FechaInicioPromo').val(result.FechaInicioPromo);
-                    $('#FechaFinPromo').val(result.FechaFinPromo);
-                    $("#Fournisseur-list option[name=" + result.IdProveedor1 + "]").attr("selected", true);
-                    OuvrirPromotion();
-                }
+        //Cargar lista proveedores
+        var oListaProveedor = $.getJSON('/Producto/ListaProveedor', function (data) {
+            $.each(data, function (i, value) {
+                $('#ListaProveedor').append('<option name="' + value.IdProveedor + '">' + value.NombreProv + '</option>');
             });
-        } else { //Errour.
-            swal({
-                title: "Error!",
-                text: "No se puede obtener los datos de la Promoción!",
-                icon: "error",
-                button: "Cerrar",
-            });
-        }
+        });
+        //Cargar Datepicker UI
+        jQuery('.mydatepicker').datepicker();
+
+    })(jQuery);
+    //--------------------Extras-----------------
+    function LimpiarPromocion() {
+        $('#ListaProveedor option[selected="selected"]').removeAttr('selected');
+        $('#FormPromocion')[0].reset();
     }
-
-    $('#Promotion-form').on('submit', function (e) {
-        e.preventDefault(); //Eviter recharger la web.
-
-        //Trouver donnés dans Model
-        var IdPromocion = $('#IdPromocion').val();
-        var NombrePromo = $('#NombrePromo').val();
-        var DescripcionPromo = $('#DescripcionPromo').val();
-        var DescuentoPromo = $('#DescuentoPromo').val();
-        var FechaInicioPromo = $('#FechaInicioPromo').val();
-        var FechaFinPromo = $('#FechaFinPromo').val();
-        var IdProveedor1 = $('#Fournisseur-list option:selected').attr('name'); //Trouver l'IdFornisseur du Select
-
-
-        //Ce n'est pas vide, l'information va s'envoge
-        if (NombrePromo != '' && DescripcionPromo != '' && DescuentoPromo != '' && FechaInicioPromo != ''
-            && FechaFinPromo != '' && IdProveedor1!='') {
-
-            var oPromocionModel = '{IdPromocion: "' + IdPromocion + '",NombrePromo: "' + NombrePromo + '",DescripcionPromo: "' + DescripcionPromo +
-                '",DescuentoPromo: "' + DescuentoPromo + '",FechaInicioPromo: "' + FechaInicioPromo + '",FechaFinPromo: "' + FechaFinPromo +
-                '",IdProveedor1: "' + IdProveedor1 + '"}';
-
-            $.ajax({
-                type: "POST",
-                url: "/Promotion/EnvogerPromotion",
-                data: oPromocionModel,
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (response) {
-                    FermerPromotion();
-                    if (IdPromocion != null || IdPromocion > 0) {
-                        swal("Promoción", "Actualizada con Éxito!", "success");
-                    } else {
-                        swal("Promoción", "Agregada con Éxito!", "success");
-                    }
-                    $('#Promotion-table').dataTable()._fnAjaxUpdate();
-                },
-                error: function (response) {
-                    FermerPromotion();
-                    if (IdProducto != null || IdProducto > 0) {
-                        swal("Error", "Al actualizar Promoción!", "error");
-                    } else {
-                        swal("Error", "Al agregar Promoción!", "error");
-                    }
-                    $('#Promotion-table').dataTable()._fnAjaxUpdate();
-                }
-            });
-        }
-
-    })
-    function ÉliminerPromotion(IdPromocion) {
-        swal({
-            title: "¿Estas Seguro?",
-            text: "¿Desea Elimininar esta Promoción?",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-        })
-            .then((willDelete) => {
-                if (willDelete) {
-                    $.ajax({
-                        type: "POST",
-                        url: "/Promotion/ÉliminerPromotion",
-                        data: '{IdPromocion: "' + IdPromocion + '" }',
-                        contentType: "application/json; charset=utf-8",
-                        dataType: "json",
-                        success: function (response) {
-                            swal("Promoción", "Eliminada con Éxito!", "success");
-                            $('#Promotion-table').dataTable()._fnAjaxUpdate();
-                        },
-                        error: function (response) {
-                            swal("Error", "Al eliminar Promoción!", "error");
-                        }
-                    });
-                } else {
-                    swal("Se ha cancelado la operación.");
-                }
-            });
+    function NuevoDialogPromocion() {
+        var oNuevoDialogPromocion = $('#DialogPromocion');
+        oNuevoDialogPromocion.data("uiDialog")._title = function (title) { title.html(this.options.title); };
+        oNuevoDialogPromocion.dialog('option', 'title', '<i class="fa fa-plus-circle"></i>&nbsp;&nbsp;Agregar Promoción');
+        LimpiarPromocion();
+        AbrirDialog(oNuevoDialogPromocion);
     }
-
-    function LaverFormPromotion() {
-        $('#Fournisseur-list option[selected="selected"]').removeAttr('selected');
-        $('#Promotion-form')[0].reset();
-    }
+    function SoloNumeros(e) {
+        var keynum = window.event ? window.event.keyCode : e.which;
+        if ((keynum == 8) || (keynum == 46))
+            return true;
+        return /\d/.test(String.fromCharCode(keynum));
+    } 
 </script>

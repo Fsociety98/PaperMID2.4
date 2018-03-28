@@ -888,8 +888,8 @@ body .ui-tooltip {
 /* Component containers
 ----------------------------------*/
 .ui-widget {
-	font-family: Roboto,sans-serif;
-	font-size: 1em;
+    font-family: Poppins,sans-serif;
+    font-size: 1em;
 }
 .ui-widget .ui-widget {
 	font-size: 1em;
@@ -898,7 +898,7 @@ body .ui-tooltip {
 .ui-widget select,
 .ui-widget textarea,
 .ui-widget button {
-	font-family: Roboto,sans-serif;
+	font-family: Poppins,sans-serif;
 	font-size: 1em;
 }
 .ui-widget.ui-widget-content {

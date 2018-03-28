@@ -82,7 +82,7 @@ a.link:hover, a.link:focus {
 
 .profile-tab li a.nav-link.active,
 .customtab li a.nav-link.active {
-    border-bottom: 2px solid #1e88e5;
+    border-bottom: 2px solid #CDDC39;
     color: #CDDC39;
 }
 
