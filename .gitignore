@@ -77,8 +77,13 @@ PaperMID/obj/Debug/PaperMID.csprojResolveAssemblyReference.cache
 PaperMID/bin/PaperMID.dll
 PaperMID/bin/PaperMID.pdb
 PaperMID/obj/Debug/PaperMID.csproj.CoreCompileInputs.cache
+<<<<<<< HEAD
+PaperMID/obj/Debug/PaperMID.csprojResolveAssemblyReference.cache
+=======
+>>>>>>> c8daae08ba2f302fe519b3ebb4b69714ceb6fa98
 PaperMID/obj/Debug/PaperMID.dll
 PaperMID/obj/Debug/PaperMID.pdb
+<<<<<<< HEAD
 .vs/PaperMID_v2.4/v15/.suo
 .vs/PaperMID_v2.4/v15/.suo
 .vs/PaperMID_v2.4/v15/Server/sqlite3/storage.ide
@@ -97,3 +102,20 @@ PaperMID/packages.config
 PaperMID/PaperMID.csproj
 PaperMID/PaperMID.csproj.user
 PaperMID/Web.config
+=======
+PaperMID/obj/Debug/PaperMID.pdb
+PaperMID/obj/Debug/PaperMID.dll
+PaperMID/obj/Debug/PaperMID.csproj.CoreCompileInputs.cache
+PaperMID/bin/PaperMID.pdb
+PaperMID/bin/PaperMID.dll
+.vs/PaperMID_v2.4/v15/Server/sqlite3/storage.ide
+.vs/PaperMID_v2.4/v15/.suo
+>>>>>>> e7bbb1d105c62aa6ec0b0019bc6a1496f171927d
+.vs/PaperMID_v2.4/v15/.suo
+.vs/PaperMID_v2.4/v15/Server/sqlite3/storage.ide
+PaperMID/bin/PaperMID.dll
+PaperMID/bin/PaperMID.pdb
+PaperMID/obj/Debug/PaperMID.csproj.CoreCompileInputs.cache
+PaperMID/obj/Debug/PaperMID.csprojResolveAssemblyReference.cache
+PaperMID/obj/Debug/PaperMID.dll
+PaperMID/obj/Debug/PaperMID.pdb
