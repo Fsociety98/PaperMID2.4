@@ -137,6 +137,7 @@ C:\Users\Jesus Uicab\Documents\GitHub\PaperMID2.4\PaperMID\bin\System.Web.Webpag
 C:\Users\Jesus Uicab\Documents\GitHub\PaperMID2.4\PaperMID\bin\System.Web.Webpages.Razor.xml
 C:\Users\Jesus Uicab\Documents\GitHub\PaperMID2.4\PaperMID\bin\System.Web.Helpers.xml
 C:\Users\Jesus Uicab\Documents\GitHub\PaperMID2.4\PaperMID\bin\System.Web.Mvc.xml
+C:\Users\Jesus Uicab\Documents\GitHub\PaperMID2.4\PaperMID\bin\Newtonsoft.Json.xml
 C:\Users\Jesus Uicab\Documents\GitHub\PaperMID2.4\PaperMID\bin\System.Net.Http.Formatting.xml
 C:\Users\Jesus Uicab\Documents\GitHub\PaperMID2.4\PaperMID\bin\System.Web.Http.xml
 C:\Users\Jesus Uicab\Documents\GitHub\PaperMID2.4\PaperMID\bin\System.Web.Http.WebHost.xml
@@ -153,4 +154,3 @@ C:\Users\Jesus Uicab\Documents\GitHub\PaperMID2.4\PaperMID\obj\Debug\PaperMID.cs
 C:\Users\Jesus Uicab\Documents\GitHub\PaperMID2.4\PaperMID\obj\Debug\PaperMID.csproj.CoreCompileInputs.cache
 C:\Users\Jesus Uicab\Documents\GitHub\PaperMID2.4\PaperMID\obj\Debug\PaperMID.dll
 C:\Users\Jesus Uicab\Documents\GitHub\PaperMID2.4\PaperMID\obj\Debug\PaperMID.pdb
-C:\Users\Jesus Uicab\Documents\GitHub\PaperMID2.4\PaperMID\bin\CloudinaryDotNet.dll
